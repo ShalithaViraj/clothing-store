@@ -1,0 +1,11 @@
+Enable-Migrations -Project Infrastructure -StartUp Web.API -Verbose
+
+
+Add-Migration 00001 -Project Clothing.Infrastructure -StartUp Clothing.API -Verbose
+ 
+
+
+
+Update-Database -Project Clothing.Infrastructure -StartUp Clothing.API -Verbose
+
+Remove-Migration modifyAddStoreId -Project Infrastructure -StartUp Web.API -Verbose
