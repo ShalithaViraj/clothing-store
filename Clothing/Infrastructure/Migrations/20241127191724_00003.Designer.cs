@@ -4,6 +4,7 @@ using Clothing.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Clothing.Infrastructure.Migrations
 {
     [DbContext(typeof(ClothingDBContext))]
-    partial class ClothingContextModelSnapshot : ModelSnapshot
+    [Migration("20241127191724_00003")]
+    partial class _00003
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -56,7 +59,10 @@ namespace Clothing.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("CreateDate")
+                    b.Property<int>("CreatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
@@ -83,7 +89,10 @@ namespace Clothing.Infrastructure.Migrations
                     b.Property<int>("Position")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("UpdateDate")
+                    b.Property<int>("UpdatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UserName")
@@ -91,6 +100,10 @@ namespace Clothing.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CreatedByUserId");
+
+                    b.HasIndex("UpdatedByUserId");
 
                     b.ToTable("User", (string)null);
                 });
@@ -140,6 +153,23 @@ namespace Clothing.Infrastructure.Migrations
                     b.ToTable("UserLoginHistory", (string)null);
                 });
 
+            modelBuilder.Entity("Clothing.Domain.Entities.User", b =>
+                {
+                    b.HasOne("Clothing.Domain.Entities.User", "CreatedByUser")
+                        .WithMany("CreatedUsers")
+                        .HasForeignKey("CreatedByUserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Clothing.Domain.Entities.User", "UpdatedByUser")
+                        .WithMany("UpdatedUsers")
+                        .HasForeignKey("UpdatedByUserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("CreatedByUser");
+
+                    b.Navigation("UpdatedByUser");
+                });
+
             modelBuilder.Entity("Clothing.Domain.Entities.UserAddress", b =>
                 {
                     b.HasOne("Clothing.Domain.Entities.Address", "Address")
@@ -177,7 +207,11 @@ namespace Clothing.Infrastructure.Migrations
 
             modelBuilder.Entity("Clothing.Domain.Entities.User", b =>
                 {
+                    b.Navigation("CreatedUsers");
+
                     b.Navigation("LogedUser");
+
+                    b.Navigation("UpdatedUsers");
 
                     b.Navigation("UserAddresses");
                 });

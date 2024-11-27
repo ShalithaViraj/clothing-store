@@ -2,7 +2,9 @@ Enable-Migrations -Project Infrastructure -StartUp Web.API -Verbose
 
 
 Add-Migration 00001 -Project Clothing.Infrastructure -StartUp Clothing.API -Verbose
- 
+Add-Migration 00002 -Project Clothing.Infrastructure -StartUp Clothing.API -Verbose
+Add-Migration 00003 -Project Clothing.Infrastructure -StartUp Clothing.API -Verbose
+Add-Migration 00004 -Project Clothing.Infrastructure -StartUp Clothing.API -Verbose
 
 
 

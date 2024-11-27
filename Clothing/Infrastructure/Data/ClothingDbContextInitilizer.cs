@@ -55,7 +55,7 @@ namespace Clothing.Infrastructure.Data
                 UserName = "admin@gmail.com",
                 Password = BCrypt.Net.BCrypt.HashPassword("pass@123"),
                 IsActive = true,
-                CreatedDate = DateTime.Now,
+                CreateDate = DateTime.Now,
 
 
             };
