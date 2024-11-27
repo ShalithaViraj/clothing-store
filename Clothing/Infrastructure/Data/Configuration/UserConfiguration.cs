@@ -17,18 +17,6 @@ namespace Clothing.Infrastructure.Data.Configuration
                 .IsRequired(false);
 
 
-            builder.HasOne<User>(f => f.CreatedByUser)
-               .WithMany(f => f.CreatedUsers)
-               .HasForeignKey(f => f.CreatedByUserId)
-               .OnDelete(DeleteBehavior.Restrict)
-               .IsRequired(false);
-
-            builder.HasOne<User>(f => f.UpdatedByUser)
-                .WithMany(f => f.UpdatedUsers)
-                .HasForeignKey(f => f.UpdatedByUserId)
-                .OnDelete(DeleteBehavior.Restrict)
-                .IsRequired(false);
-
         }
     }
 }

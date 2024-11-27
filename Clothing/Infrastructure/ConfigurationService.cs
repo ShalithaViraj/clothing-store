@@ -1,10 +1,12 @@
 ﻿
 using Clothing.Application.Common.Interface;
+using Clothing.Domain.Repository.Command;
 using Clothing.Domain.Repository.Command.Common;
 using Clothing.Domain.Repository.Query;
 using Clothing.Domain.Repository.Query.Common;
 using Clothing.Infrastructure.Data;
 using Clothing.Infrastructure.Interceptor;
+using Clothing.Infrastructure.Repository.Command;
 using Clothing.Infrastructure.Repository.Command.Common;
 using Clothing.Infrastructure.Repository.Query;
 using Clothing.Infrastructure.Repository.Query.Common;
@@ -25,7 +27,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 options.UseSqlServer(connectionString);
             });
 
-            services.AddTransient<IClothingDBContext>(provider => provider.GetRequiredService<IClothingDBContext>());
+            services.AddTransient<IClothingDBContext>(provider => provider.GetRequiredService<ClothingDBContext>());
 
             services.AddTransient<ClothingDbContextInitilizer>();
 
@@ -36,6 +38,11 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped(typeof(ICommandRepository<>), typeof(CommandRepository<>));
 
             services.AddTransient<IUserQueryRepository, UserQueryRepository>();
+            services.AddTransient<IUserCommandRepository, UserCommandRepository>();
+
+            services.AddTransient<IUserHistoryCommandRepository, UserHistoryCommandRepository>();
+            
+            services.AddTransient<IAuthenticationService, AuthenticationService>();
 
             return services;
         }

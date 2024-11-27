@@ -7,6 +7,10 @@ namespace Clothing.Application.Common.Interface
     {
         DbSet<User> Users { get; }
         DbSet<UserLoginHistory> UserLoginHistory { get; }
+        DbSet<Address> Address { get; }
+        DbSet<UserAddress> UserAddresses { get; }
+
+
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
         Task BeginTransactionAsync(CancellationToken cancellationToken);
         Task CommitTransactionAsync(CancellationToken cancellationToken);

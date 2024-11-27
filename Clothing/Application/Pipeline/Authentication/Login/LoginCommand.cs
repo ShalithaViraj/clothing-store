@@ -24,7 +24,11 @@ namespace Clothing.Application.Pipeline.Authentication.Login
 
         public async Task<LoginResponseDto> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
-            var authenticationDto = _mapper.Map<AuthenticationDto>(request);
+            var authenticationDto = new AuthenticationDto()
+            {
+                UserName = request.UserName,
+                Password = request.Password
+            };
 
             if (authenticationDto == null)
             {

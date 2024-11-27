@@ -1,7 +1,7 @@
 ﻿using Clothing.Application.Pipeline.Authentication.Login;
+using Clothing.Application.Pipeline.Authentication.Registration;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Clothing.API.Controllers
@@ -22,6 +22,15 @@ namespace Clothing.API.Controllers
         public async Task<IActionResult> Login([FromBody] LoginCommand authenticationCommand)
         {
             var response = await _mediator.Send(authenticationCommand);
+
+            return Ok(response);
+        }
+
+        [AllowAnonymous]
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([FromBody] RegistrationCommand registrationCommand)
+        {
+            var response = await _mediator.Send(registrationCommand);
 
             return Ok(response);
         }

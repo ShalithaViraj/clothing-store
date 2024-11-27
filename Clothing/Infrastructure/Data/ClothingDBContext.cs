@@ -99,5 +99,8 @@ namespace Clothing.Infrastructure.Data
 
         public DbSet<User> Users => Set<User>();
         public DbSet<UserLoginHistory> UserLoginHistory => Set<UserLoginHistory>();
+        public DbSet<Address> Address => Set<Address>();
+        public DbSet<UserAddress> UserAddresses => Set<UserAddress>();
+
     }
 }
